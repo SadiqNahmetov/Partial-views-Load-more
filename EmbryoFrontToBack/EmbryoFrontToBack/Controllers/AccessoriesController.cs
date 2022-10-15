@@ -21,7 +21,10 @@ namespace EmbryoFrontToBack.Controllers
 
         public async Task<IActionResult> Index()
         {
-            IEnumerable<Accessories> accessories = await _context.Accessories.Where(m=>!m.IsDeleted).ToListAsync();
+           
+            ViewBag.count = await _context.Accessories.Where(m=>!m.IsDeleted).CountAsync();
+
+            IEnumerable<Accessories> accessories = await _context.Accessories.Where(m=>!m.IsDeleted).Take(3).OrderBy(m=>m.Id).ToListAsync();
 
             AccessoriesVM accessoriesVM = new AccessoriesVM
             {
@@ -30,10 +33,10 @@ namespace EmbryoFrontToBack.Controllers
             return View(accessoriesVM);
         }
 
-        public async Task<IActionResult> LoadMore()
+        public async Task<IActionResult> LoadMore(int skip)
         {
-            IEnumerable<Accessories> accessories = await _context.Accessories.Where(m=>!m.IsDeleted).Skip(3).Take(3).ToListAsync();
-            return View("_ProductsPartial", accessories);
+            IEnumerable<Accessories> accessories = await _context.Accessories.Where(m=>!m.IsDeleted).Skip(skip).Take(3).ToListAsync();
+            return PartialView("_ProductPartial", accessories);
         }
 
     }

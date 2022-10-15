@@ -360,21 +360,7 @@
             crossorigin="anonymous"></script>
     <script src="https://kit.fontawesome.com/0622708fc2.js" crossorigin="anonymous"></script>
 
-    <script>
-        $(document).ready(function () {
-
-            $(document).on("click", ".btn-primary", function () {
-                $.ajax({
-                    url: "/accessories/loadmore",
-                    type: "Get",
-                    success: function (resp) {
-                        let parentProducts = $("parentProducts");
-                        $(parentProducts).append(resp);
-                    }
-                })
-            })
-        })
-    </script>
+   
 
     <script src="~/assets/js/Accessories/accessories.js"></script>
 

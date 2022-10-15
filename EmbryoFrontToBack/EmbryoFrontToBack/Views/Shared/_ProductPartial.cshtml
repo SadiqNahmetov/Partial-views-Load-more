@@ -1,8 +1,8 @@
-﻿@model AccessoriesVM
+﻿@model IEnumerable<Accessories>
 
-<div class="row">
 
-    @foreach (var accessories in Model.Accessories)
+
+    @foreach (var accessories in Model)
     {
         <div class="col-4">
             <div class="card my-card" style="width: 18rem;">
@@ -14,7 +14,7 @@
                 <div class="card-body card-bottom">
                     <i class="fa-solid fa-cart-shopping"></i>
                     <h5 class="card-title">@accessories.Title</h5>
-                    <h6 class="card-text">$ @((double)accessories.Price)</h6>
+                    <h6 class="card-text">$@accessories.Price.ToString("0.#####")</h6>
                     <ion-icon name="star"></ion-icon>
                     <ion-icon name="star-half-sharp"></ion-icon>
                     <ion-icon name="star"></ion-icon>
@@ -26,8 +26,4 @@
         </div>
     }
 
-    <div class="show-more d-flex justify-content-center my-3 mb-3 w-100">
-        <button class="btn btn-primary">Show more ...</button>
-    </div>
-    </div>
-</div>
+  
