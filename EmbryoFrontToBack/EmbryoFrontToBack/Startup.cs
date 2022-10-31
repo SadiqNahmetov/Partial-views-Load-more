@@ -1,4 +1,5 @@
 using EmbryoFrontToBack.Data;
+using EmbryoFrontToBack.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
@@ -28,6 +29,11 @@ namespace EmbryoFrontToBack
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConection"));
             });
 
+            services.AddIdentity<AppUser, IdentityRole>()
+                .AddEntityFrameworkStores<AppDbContext>()
+                .AddDefaultTokenProviders();
+
+
             services.Configure<IdentityOptions>(opt =>
             {
                 opt.Password.RequireDigit = true;
@@ -35,8 +41,10 @@ namespace EmbryoFrontToBack
                 opt.Password.RequireUppercase = false;
 
                 opt.User.RequireUniqueEmail = true;
+
                 opt.Lockout.MaxFailedAccessAttempts = 3;
                 opt.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(3);
+                opt.Lockout.AllowedForNewUsers = true;
             });
         }
 
